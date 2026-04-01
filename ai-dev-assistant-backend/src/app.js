@@ -21,7 +21,18 @@ const app = express();
 // ✅ THEN connect DB
 connectDB();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173", // local dev (vite)
+      "http://localhost:3000",
+      "https://ai-dev-assistant-frontend.vercel.app",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.set("trust proxy", 1);
 // ✅ Public route
