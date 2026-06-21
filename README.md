@@ -1,149 +1,214 @@
 # 🚀 AI Dev Assistant
 
-A full-stack AI-powered developer tool that helps you **rewrite text naturally** and **generate clean Git commit messages** using customizable tone and intelligent prompts.
+[![Live Demo](https://img.shields.io/badge/Vercel-Live-success?logo=vercel)](https://ai-dev-assistant-frontend.vercel.app)
+[![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js)](#)
+[![Node.js](https://img.shields.io/badge/Node.js-339933?logo=node.js\&logoColor=white)](#)
+[![MongoDB](https://img.shields.io/badge/MongoDB-47A248?logo=mongodb\&logoColor=white)](#)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-Built with a modern stack and designed for real-world usage.
+> **"Helping developers spend less time writing and more time building."**
+
+AI Dev Assistant is a full-stack AI-powered developer tool that helps developers rewrite text naturally and generate clean Conventional Commit messages using customizable tones and intelligent prompts.
+
+---
+
+## 🌐 Live Demo
+
+* **Frontend:** https://ai-dev-assistant-frontend.vercel.app
+* **Backend API:** https://ai-dev-assistant-two.vercel.app
+
+---
+
+## 📖 About
+
+AI Dev Assistant is designed to streamline everyday developer workflows by providing fast, focused AI utilities instead of relying on generic chatbot interfaces.
+
+The application currently offers two productivity tools:
+
+* **AI Text Rephraser** for rewriting content in different tones.
+* **AI Commit Generator** for producing standardized Conventional Commit messages.
+
+Every authenticated user also gets a personal request history, allowing previous AI generations to be revisited without repeating prompts.
 
 ---
 
 ## ✨ Features
 
-* ✍️ **Text Rephraser**
+### ✍️ AI Text Rephraser
 
-  * Humanizes and rewrites text
-  * Supports custom tone (professional, casual, friendly, etc.)
-  * Clean, copy-ready output
+* Rewrite text naturally
+* Humanize AI-generated content
+* Custom writing tones
+* Copy-ready output
 
-* 🧠 **Commit Message Generator**
+### 🧠 Commit Message Generator
 
-  * Generates Conventional Commit messages
-  * Smart type detection (feat, fix, refactor, etc.)
-  * Concise and production-ready output
+* Conventional Commit support
+* Smart commit type detection
+* Clean, production-ready messages
+* Concise developer-focused output
 
-* 🔐 **Authentication**
+### 📜 History
 
-  * JWT-based login/register system
-  * Protected routes for all AI features
+* Stores the last 10 AI requests
+* Saves prompts and responses
+* Tracks selected tone and generation type
 
-* 📜 **History Tracking**
+### 🔐 Security
 
-  * Stores last 10 requests per user
-  * Includes input, output, tone, and type
-
-* ⚡ **Rate Limiting**
-
-  * Prevents abuse
-  * Applied per user/IP
+* JWT Authentication
+* Protected API routes
+* Rate limiting
+* User-specific history
 
 ---
 
-## 🏗️ Project Structure
+## 🏗 Architecture
 
+The project follows a decoupled full-stack architecture.
+
+```text
+Frontend (Next.js)
+        │
+        ▼
+Authentication (JWT)
+        │
+        ▼
+ Express.js REST API
+        │
+ ┌──────┴────────┐
+ │               │
+ ▼               ▼
+MongoDB      Groq API
+(User Data)   (LLM)
 ```
+
+The frontend communicates with an Express backend that handles authentication, request validation, AI orchestration, and persistent history storage. AI responses are generated using the Groq API and securely returned to authenticated users.
+
+---
+
+## 🛠 Technology Stack
+
+| Category           | Technology                          |
+| ------------------ | ----------------------------------- |
+| **Frontend**       | Next.js, React, Tailwind CSS, Axios |
+| **Backend**        | Node.js, Express.js                 |
+| **Database**       | MongoDB (Mongoose)                  |
+| **Authentication** | JSON Web Tokens (JWT)               |
+| **AI Provider**    | Groq API                            |
+| **Deployment**     | Vercel                              |
+
+---
+
+## 📂 Project Structure
+
+```text
 ai-dev-assistant/
 │
-├── ai-dev-assistant-backend/   # Express + MongoDB API
+├── ai-dev-assistant-backend/
+│   ├── controllers/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   └── services/
 │
-├── ai-dev-assistant-frontend/  # React frontend (Vercel deployed)
+├── ai-dev-assistant-frontend/
+│   ├── app/
+│   ├── components/
+│   ├── hooks/
+│   └── lib/
 │
 └── README.md
 ```
 
 ---
 
-## 🛠️ Tech Stack
+## 🚀 Getting Started
 
-### Frontend
+### Prerequisites
 
-* React
-* Tailwind CSS
-* Axios
+* Node.js 18+
+* MongoDB
+* Groq API Key
 
-### Backend
+### Clone the repository
 
-* Node.js
-* Express.js
-* MongoDB (Mongoose)
-* JWT Authentication
-* Groq API (LLM)
+```bash
+git clone https://github.com/rsayyed591/ai-dev-assistant.git
 
----
+cd ai-dev-assistant
+```
 
-## 🌐 Live Demo
+### Backend Setup
 
-* Frontend: https://ai-dev-assistant-frontend.vercel.app
-* Backend: https://ai-dev-assistant-two.vercel.app
+```bash
+cd ai-dev-assistant-backend
+
+npm install
+
+cp .env.example .env
+
+npm run dev
+```
+
+### Frontend Setup
+
+```bash
+cd ../ai-dev-assistant-frontend
+
+npm install
+
+npm run dev
+```
 
 ---
 
 ## ⚙️ Environment Variables
 
-### Backend (`.env`)
+### Backend
 
-```
+```env
 PORT=5000
+
 MONGO_URI=your_mongodb_uri
-JWT_SECRET=your_secret_key
+
+JWT_SECRET=your_secret
+
 GROQ_API_KEY=your_groq_api_key
-```
-
----
-
-## 🚀 Getting Started
-
-### 1️⃣ Clone the repository
-
-```
-git clone https://github.com/your-username/ai-dev-assistant.git
-cd ai-dev-assistant
-```
-
----
-
-### 2️⃣ Setup Backend
-
-```
-cd ai-dev-assistant-backend
-npm install
-npm run dev
-```
-
----
-
-### 3️⃣ Setup Frontend
-
-```
-cd ai-dev-assistant-frontend
-npm install
-npm run dev
 ```
 
 ---
 
 ## 🔐 API Endpoints
 
-### Auth
+### Authentication
 
-* `POST /api/auth/register`
-* `POST /api/auth/login`
+| Method | Endpoint             |
+| ------ | -------------------- |
+| POST   | `/api/auth/register` |
+| POST   | `/api/auth/login`    |
 
-### AI Features
+### AI
 
-* `POST /api/rephrase`
-* `POST /api/commit`
+| Method | Endpoint        |
+| ------ | --------------- |
+| POST   | `/api/rephrase` |
+| POST   | `/api/commit`   |
 
 ### User
 
-* `GET /api/profile`
-* `GET /api/history`
+| Method | Endpoint       |
+| ------ | -------------- |
+| GET    | `/api/profile` |
+| GET    | `/api/history` |
 
 ---
 
-## 🧪 Example Request
+## 💻 Example Requests
 
-### Rephrase
+### Rephrase Text
 
-```
+```http
 POST /api/rephrase
 Authorization: Bearer <token>
 ```
@@ -151,35 +216,65 @@ Authorization: Bearer <token>
 ```json
 {
   "text": "fix this asap bro",
-  "tone": "polite and professional"
+  "tone": "professional"
 }
 ```
 
 ---
 
-### Commit
+### Generate Commit
 
-```
+```http
 POST /api/commit
 Authorization: Bearer <token>
 ```
 
 ```json
 {
-  "context": "added login api and fixed token bug",
+  "context": "implemented login api and fixed token validation",
   "tone": "concise"
 }
 ```
 
 ---
 
-## 💡 Future Improvements
+## 💡 Roadmap
 
-* Google OAuth login
-* Tone presets & user preferences
-* VS Code extension
-* Usage analytics dashboard
-* Multi-language support
+* [ ] Google OAuth
+* [ ] GitHub OAuth
+* [ ] VS Code Extension
+* [ ] Browser Extension
+* [ ] Custom prompt presets
+* [ ] Team workspaces
+* [ ] Usage analytics
+* [ ] Multi-language support
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome.
+
+1. Fork the repository.
+2. Create a feature branch.
+
+```bash
+git checkout -b feature/amazing-feature
+```
+
+3. Commit your changes.
+
+```bash
+git commit -m "feat: add amazing feature"
+```
+
+4. Push your branch.
+
+```bash
+git push origin feature/amazing-feature
+```
+
+5. Open a Pull Request.
 
 ---
 
@@ -187,14 +282,25 @@ Authorization: Bearer <token>
 
 **Rehan Sayyed**
 
----
-
-## ⭐ Contributing
-
-Feel free to fork the repo and submit pull requests.
+* 🌐 Portfolio: https://iamrehan.dev
+* GitHub: https://github.com/rsayyed591
 
 ---
 
 ## 📄 License
 
-This project is open-source and available under the MIT License.
+This project is licensed under the **MIT License**.
+
+See the `LICENSE` file for more information.
+
+---
+
+<div align="center">
+
+### ⭐ Like the project?
+
+If AI Dev Assistant helps improve your workflow, consider giving the repository a **star**.
+
+Built with ❤️ by **Rehan Sayyed**
+
+</div>
