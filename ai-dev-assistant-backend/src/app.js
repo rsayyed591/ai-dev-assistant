@@ -21,18 +21,7 @@ const app = express();
 // ✅ THEN connect DB
 connectDB();
 
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173", // local dev (vite)
-      "http://localhost:3000",
-      "https://ai-dev-assistant-frontend.vercel.app",
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true,
-  })
-);
+app.use(cors());
 app.use(express.json());
 app.set("trust proxy", 1);
 // ✅ Public route
@@ -48,3 +37,12 @@ app.use("/api/profile", verifyToken, profileRoutes);
 app.get("/", (req, res) => {
   res.json({ success: true, message: "API running" });
 });
+
+const PORT = process.env.PORT || 5000;
+if (process.env.NODE_ENV !== "production" && !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
+
+export default app;

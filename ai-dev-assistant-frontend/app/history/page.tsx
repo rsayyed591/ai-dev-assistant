@@ -13,7 +13,8 @@ export default function HistoryPage() {
     const fetchHistory = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/history`, {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
+        const res = await axios.get(`${apiUrl}/api/history`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (res.data.success) setHistory(res.data.data);

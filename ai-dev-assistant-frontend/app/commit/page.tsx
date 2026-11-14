@@ -18,8 +18,9 @@ export default function CommitPage() {
     setLoading(true);
     try {
       const token = localStorage.getItem("token");
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/commit`,
+        `${apiUrl}/api/commit`,
         { context, tone: tone.trim() || "concise and direct" },
         { headers: { Authorization: `Bearer ${token}` } }
       );

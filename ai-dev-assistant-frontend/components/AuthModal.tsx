@@ -30,7 +30,8 @@ export default function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps
       const endpoint = isLogin ? "/api/auth/login" : "/api/auth/register";
       const payload = isLogin ? { email, password } : { name, email, password };
 
-      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}${endpoint}`, payload);
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
+      const res = await axios.post(`${apiUrl}${endpoint}`, payload);
       
       if (res.data.success) {
         // Save token & user to localStorage (or a context)

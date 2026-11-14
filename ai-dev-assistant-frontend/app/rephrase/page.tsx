@@ -18,8 +18,9 @@ export default function RephrasePage() {
     setLoading(true);
     try {
       const token = localStorage.getItem("token");
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/rephrase`,
+        `${apiUrl}/api/rephrase`,
         { text, tone: tone.trim() || "polite and professional" },
         { headers: { Authorization: `Bearer ${token}` } }
       );
